@@ -13,6 +13,7 @@ export class PkmnComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
 }

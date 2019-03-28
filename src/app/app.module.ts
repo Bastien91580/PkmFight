@@ -7,6 +7,8 @@ import { PkmnComponent } from './pkmn/pkmn.component';
 import { FightWindowComponent } from './fight-window/fight-window.component';
 import { EnnemieComponent } from './ennemie/ennemie.component';
 import { FightServiceService } from './fight-service.service';
+import { ApiPokemonService } from './api-pokemon.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,10 @@ import { FightServiceService } from './fight-service.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [FightServiceService],
+  providers: [FightServiceService, ApiPokemonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

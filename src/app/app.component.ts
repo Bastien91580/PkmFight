@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { Injectable } from '@angular/core';
 import { FightServiceService } from './fight-service.service';
 import { Pokemon } from './pokemon.model';
+import { ApiPokemonService } from './api-pokemon.service';
 
 
 @Component({
@@ -12,9 +13,12 @@ import { Pokemon } from './pokemon.model';
 })
 export class AppComponent implements OnInit {
   title = 'Pkm Fight';
-  fightLog: string[] = [];
-  pokemonA = new Pokemon("Carapuce", 43, 44, 48, 65);
-	pokemonB = new Pokemon("Salameche", 65, 39, 52, 43);
+	fightLog: string[] = [];
+	pokemonA = new Pokemon("Carapuce", 43, 44, 48, 65);
+  pokemonB = new Pokemon("Salameche", 65, 39, 52, 43);
+	
+	//pokemonA : Pokemon;
+	//pokemonB : Pokemon;
 	clic: number[] = [0];
 	
 	launchFight(){
@@ -30,11 +34,32 @@ export class AppComponent implements OnInit {
 		}
 	}
   
-  constructor(private fightService: FightServiceService){
+  constructor(private fightService: FightServiceService, private apiPokemonService: ApiPokemonService){
 	}
-	
-	ngOnInit(): void{
-    
+	//_name, _speed, _health, _attack, _defence)
+	ngOnInit(): void{ 
+		this.apiPokemonService.getPkmn(7).subscribe(pkmn => {
+			
+			console.log(pkmn['name']);
+			console.log(+ " " + pkmn['stats'][5]['base_stat'] + " " + pkmn['stats'][4]['base_stat'] + " " + pkmn['stats'][3]['base_stat'])
+			let l = Number(pkmn['stats'][5]['base_stat']);
+			let a = Number(pkmn['stats'][4]['base_stat']);
+			let d = Number(pkmn['stats'][3]['base_stat']);
+			let s = Number(pkmn['stats'][0]['base_stat']);
+
+			this.pokemonA = new Pokemon(pkmn['name'], s, l,  a, d);
+		});
+
+    this.apiPokemonService.getPkmn(4).subscribe(pkmn => {
+			console.log(pkmn['name']);
+			console.log(+ " " + pkmn['stats'][5]['base_stat'] + " " + pkmn['stats'][4]['base_stat'] + " " + pkmn['stats'][3]['base_stat'])
+			let l = Number(pkmn['stats'][5]['base_stat']);
+			let a = Number(pkmn['stats'][4]['base_stat']);
+			let d = Number(pkmn['stats'][3]['base_stat']);
+			let s = Number(pkmn['stats'][0]['base_stat']);
+
+			this.pokemonB = new Pokemon(pkmn['name'], s, l,  a, d);
+    });
 	}
 
 }

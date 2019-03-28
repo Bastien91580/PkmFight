@@ -8,7 +8,8 @@ export class Pokemon{
 	defence: number;
 	healht_por: string;
 	healht_por_num: number;
-	constructor(_name, _speed, _health, _attack, _defence) {
+	attacked: boolean;
+	constructor(_name: string, _speed: number, _health: number, _attack: number, _defence: number) {
 	    this.name = _name;
         this.speed = _speed;
         this.base_health = _health
@@ -17,12 +18,14 @@ export class Pokemon{
         this.defence = _defence;
 		this.healht_por = '100%';
 		this.healht_por_num = 100;
+		this.attacked = false;
 	}	
 
 	launchAttack(pokemonExt, random, log:string[]){
 		let damage = calculateDamages(this.attack, pokemonExt.defence, random)
 		if(damage > 0){
 			pokemonExt.health -= damage;
+			pokemonExt.attacked = true;
 			pokemonExt.healht_por_num = Math.floor((pokemonExt.health * 100) / pokemonExt.base_health) 
 			pokemonExt.healht_por = pokemonExt.healht_por_num + "%";
 

@@ -20,6 +20,7 @@ export class FightServiceService {
 							subscriber.next(B.name + " est KO, " + A.name + " est le vainqueur");
 							return 1;
 						}
+						A.attacked = false;
 						var tmp = A;
 						A = B;
 						B = tmp;
