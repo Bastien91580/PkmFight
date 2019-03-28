@@ -8,6 +8,7 @@ import { Pokemon } from '../pokemon.model';
 })
 export class PkmnComponent implements OnInit {
   @Input() pokemon: Pokemon;
+  @Input() heroOrEnnemie: boolean;
 
   constructor() {
   }

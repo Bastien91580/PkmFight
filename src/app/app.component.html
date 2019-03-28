@@ -1,6 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.
-
-<button (click)="launchFight()">Fight</button>-->
+<!--The content below is only a placeholder and can be replaced.-->
 <div class="container">	
   <div id="pokeballLoader" class="center-on-page">
     <div class="pokeball">
@@ -12,7 +10,6 @@
     <div class="col">
         <div class="btn-group btn-block">
             <button (click)="launchFight()">Fight</button>
-            <!--<button id="launchFight" type="button" class="btn btn-block btn-warning">Lancer le Combat !</button>-->
         </div>
       </div>
   </div>	
@@ -28,10 +25,11 @@
       <div id="fighter" class="card-img-overlay" >
 
         <!-- pkm bas -> Pokemon B -->
-        <app-ennemie [pokemon]="pokemonB"></app-ennemie>
+        <!-- <app-ennemie [pokemon]="pokemonB"></app-ennemie>-->
+        <app-pkmn [pokemon]="pokemonB" [heroOrEnnemie]="false"></app-pkmn>		
         
         <!-- pkm bas -> Pokemon A -->
-        <app-pkmn [pokemon]="pokemonA"></app-pkmn>		
+        <app-pkmn [pokemon]="pokemonA" [heroOrEnnemie]="true"></app-pkmn>		
         
       </div>
 

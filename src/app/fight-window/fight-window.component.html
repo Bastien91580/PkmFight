@@ -1,4 +1,4 @@
-<div class="card-footer bg-transparent">
+<div class="card-footer bg-transparent" #scrollMe [scrollTop]="scrollMe.scrollHeight" style="height:177px !important; overflow-y:auto; position: relative;">
     <p>La partie est lancé ! ({{ startDate | date : 'short' }})</p>
     <p *ngFor="let item of log">
       {{ item }}
