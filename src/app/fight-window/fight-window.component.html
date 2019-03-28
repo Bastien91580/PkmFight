@@ -1,27 +1,6 @@
 <div class="card-footer bg-transparent">
-     
+    <p>La partie est lancé ! ({{ startDate | date : 'short' }})</p>
     <p *ngFor="let item of log">
       {{ item }}
     </p>
-
-     <!--
-  </div>
-    <div id="fightLog" class="form-control" rows="3" cols="117" overflow-scroll="true" style="background: #343a40; color: white;">
-      <p *ngFor="let item of log">{{ item }}<br></p>
-    </div>
-    -->
-
-
-
-    <!--
-
-    <table class="table table-bordered table-wrapper-scroll-y table-dark">
-    <tbody>
-        <tr>
-          <td>Mark</td>
-        </tr>
-      </tbody>
-    </table>
-
-    -->
 </div>

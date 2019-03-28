@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { FightServiceService } from './fight-service.service';
+import { Pokemon } from './pokemon.model';
+
 
 @Component({
   selector: 'app-root',
@@ -14,7 +19,7 @@ export class AppComponent implements OnInit {
 	
 	launchFight(){
 		if(this.clic[0] == 0){
-			fight(this.pokemonA, this.pokemonB, 100, 100, this.fightLog, this.clic);
+			fight(this.pokemonA, this.pokemonB, 100, 100, this.fightLog, this.clic, this.fightService);
 			this.clic[0] = 1;
 		}else if(this.clic[0] == 1){
 			this.clic[0] = 2;
@@ -25,46 +30,13 @@ export class AppComponent implements OnInit {
 		}
 	}
   
-  constructor(){
+  constructor(private fightService: FightServiceService){
 	}
 	
 	ngOnInit(): void{
     
 	}
-}
 
-
-// Pkm Functions
-export class Pokemon{
-	name: string;
-	speed: number;
-  health: number;
-  base_health: number;
-	attack: number;
-	defence: number;
-	healht_por: string;
-	constructor(_name, _speed, _health, _attack, _defence) {
-	    this.name = _name;
-      this.speed = _speed;
-      this.base_health = _health
-	    this.health = _health;
-	    this.attack = _attack;
-			this.defence = _defence;
-			this.healht_por = '100%';
-	}	
-
-	launchAttack(pokemonExt, random, log:string[]){
-		let damage = calculateDamages(this.attack, pokemonExt.defence, random)
-		if(damage > 0){
-			pokemonExt.health -= damage;
-			pokemonExt.healht_por = Math.floor((pokemonExt.health * 100) / pokemonExt.base_health) + "%";
-			log.push(this.name + " inflige " + damage + " pts. de dégats à " + pokemonExt.name + ".");
-			return damage;
-		} else {
-			log.push("Ce n'est pas efficace, " + pokemonExt.name + " résiste!");
-			return 0;
-		}
-	}
 }
 
 // Get how start to fight
@@ -82,16 +54,8 @@ export function whoAttaquefirst(pokemonA, pokemonB, log, print){
 	}
 }
 
-// Damages calcul function
-export function calculateDamages(_attack, _defence, random){
-	let powerBase = random;
-	let levelAttack = 1;
-	let damage = Math.floor(Math.floor(Math.floor(2 * levelAttack / 5 + 2) * _attack * powerBase / _defence) / 50) + 2;
-	return damage;
-}
-
 // Fight Function
-export function fight(pokemonA, pokemonB, randomA, randomB, log, clic){
+export function fight(pokemonA, pokemonB, randomA, randomB, log, clic, fightService){
 	var print = 0;
 
 	if(pokemonA.health !== pokemonA.base_health || pokemonB.health !== pokemonB.base_health ){
@@ -111,24 +75,14 @@ export function fight(pokemonA, pokemonB, randomA, randomB, log, clic){
 		A = pokemonB;
 		B = pokemonA;
 	}
-
-	setInterval(function(){
-		if(A.health !== 0 && B.health !== 0 && clic[0] == 1){
-			A.launchAttack(B, randomA, log);
-			if(B.health <= 0){
-				B.health = 0;
-				B.healht_por = "0%";
-				log.push(B.name + " est KO, " + A.name + " est le vainqueur");
-				console.log(B.name + " est KO, " + A.name + " est le vainqueur")
-				return 1;
-			}
-
-			var tmp = A;
-			A = B;
-			B = tmp;
-		}
-
-	}, 2000);
+	
+	const myObservable = fightService.fight(A, B, randomA, clic, log);
+	
+	myObservable.subscribe(
+		next => log.push(next),
+		error => console.error('onError: %s', error),
+		() => console.log('onCompleted')
+	)
 
 }
 

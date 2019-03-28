@@ -1,4 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
+import { PipeTransform, Pipe } from '@angular/core';
 
 @Component({
   selector: 'app-fight-window',
@@ -7,6 +8,7 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class FightWindowComponent implements OnInit {
   @Input() log: string[];
+  startDate = new Date();
   constructor() { 
 
   }

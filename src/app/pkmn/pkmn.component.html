@@ -8,7 +8,7 @@
         <strong><div id="heroName" class="card-header">{{pokemon.name}}</div></strong>
         <div class="card-body">
           <div class="progress">
-            <div id="heroLPBar" id="vilainLPBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [attr.aria-valuenow]="pokemon.health" aria-valuemin="0" [attr.aria-valuemax]="pokemon.base_health" [ngStyle]="{width: pokemon.healht_por}"></div>
+            <div id="heroLPBar" id="vilainLPBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [attr.aria-valuenow]="pokemon.health" aria-valuemin="0" [attr.aria-valuemax]="pokemon.base_health" [ngClass]="{'bg-success': (pokemon.healht_por_num>=66), 'bg-warning': (pokemon.healht_por_num>=33 && pokemon.healht_por_num<66), 'bg-danger': (pokemon.healht_por_num<33) }" [ngStyle]="{width: pokemon.healht_por}"></div>
           </div>
           <p id="heroLifePoint" class="card-text text-right">{{pokemon.health}} / {{pokemon.base_health}} PV</p>
         </div>
