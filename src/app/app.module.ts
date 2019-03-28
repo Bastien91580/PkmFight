@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PkmnComponent } from './pkmn/pkmn.component';
 import { FightWindowComponent } from './fight-window/fight-window.component';
+import { EnnemieComponent } from './ennemie/ennemie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PkmnComponent,
-    FightWindowComponent
+    FightWindowComponent,
+    EnnemieComponent
   ],
   imports: [
     BrowserModule,

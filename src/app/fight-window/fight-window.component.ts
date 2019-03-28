@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-fight-window',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fight-window.component.css']
 })
 export class FightWindowComponent implements OnInit {
+  @Input() log: string[];
+  constructor() { 
 
-  constructor() { }
+  }
 
   ngOnInit() {
+
   }
 
 }

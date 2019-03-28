@@ -1,0 +1,17 @@
+<div id="vilainRow" class="row" style="padding-top: 25%">
+  <div class="col col-md-6">
+    <div class="card text-white bg-dark mb-3" style="max-width: 100%;">
+      <strong><div id="vilainName" class="card-header">{{pokemon.name}}</div></strong>
+      <div class="card-body">
+        <div class="progress">
+          <div id="vilainLPBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [attr.aria-valuenow]="pokemon.health" aria-valuemin="0" [attr.aria-valuemax]="pokemon.base_health" [ngStyle]="{width: pokemon.healht_por}"></div>
+        </div>
+        <p id="vilainLifePoint" class="card-text text-right">{{pokemon.health}} / {{pokemon.base_health}} PV</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col col-md-6 text-center">
+    <img id="vilainImage" src="/assets/img/vilain/salameche.gif" class="img-salameche" alt="Vilain">
+  </div>
+</div> 

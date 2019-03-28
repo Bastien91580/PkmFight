@@ -1,19 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Pkm Fight';
+  fightLog: string[] = [];
   pokemonA = new Pokemon("Carapuce", 43, 44, 48, 65);
-  pokemonB = new Pokemon("Salameche", 65, 39, 52, 43);
-
+	pokemonB = new Pokemon("Salameche", 65, 39, 52, 43);
+	clic: number[] = [0];
+	
+	launchFight(){
+		if(this.clic[0] == 0){
+			fight(this.pokemonA, this.pokemonB, 100, 100, this.fightLog, this.clic);
+			this.clic[0] = 1;
+		}else if(this.clic[0] == 1){
+			this.clic[0] = 2;
+			console.log("Pause");
+		}else if(this.clic[0] == 2){
+			this.clic[0] = 1;
+			console.log("UnPause");
+		}
+	}
+  
   constructor(){
-    // TODO lancer le combats.
-    fight(this.pokemonA, this.pokemonB, 100, 100)
-  }
+	}
+	
+	ngOnInit(): void{
+    
+	}
 }
 
 
@@ -21,40 +38,51 @@ export class AppComponent {
 export class Pokemon{
 	name: string;
 	speed: number;
-	health: number;
+  health: number;
+  base_health: number;
 	attack: number;
 	defence: number;
+	healht_por: string;
 	constructor(_name, _speed, _health, _attack, _defence) {
 	    this.name = _name;
-	    this.speed = _speed;
+      this.speed = _speed;
+      this.base_health = _health
 	    this.health = _health;
 	    this.attack = _attack;
-	    this.defence = _defence;
+			this.defence = _defence;
+			this.healht_por = '100%';
 	}	
 
-	launchAttack(pokemonExt, random){
+	launchAttack(pokemonExt, random, log:string[]){
 		let damage = calculateDamages(this.attack, pokemonExt.defence, random)
 		if(damage > 0){
 			pokemonExt.health -= damage;
-			console.log(this.name + " inflige " + damage + " pts. de dégats à " + pokemonExt.name + ".");
+			pokemonExt.healht_por = Math.floor((pokemonExt.health * 100) / pokemonExt.base_health) + "%";
+			log.push(this.name + " inflige " + damage + " pts. de dégats à " + pokemonExt.name + ".");
 			return damage;
 		} else {
-			console.log("Ce n'est pas efficace, " + pokemonExt.name + " résiste!");
+			log.push("Ce n'est pas efficace, " + pokemonExt.name + " résiste!");
 			return 0;
 		}
 	}
 }
 
-export function whoAttaquefirst(pokemonA, pokemonB){
+// Get how start to fight
+export function whoAttaquefirst(pokemonA, pokemonB, log, print){
 	if(pokemonA.speed > pokemonB.speed){
-		console.log(pokemonA.name + " attaque en premier.")
+		if(print === 0){
+			log.push(log = pokemonA.name + " attaque en premier.");
+		}
 		return 1;
 	} else {
-		console.log(pokemonB.name + " attaque en premier.")
+		if(print === 0){
+			log.push(log = pokemonB.name + " attaque en premier.");
+		}
 		return 2;
 	}
 }
 
+// Damages calcul function
 export function calculateDamages(_attack, _defence, random){
 	let powerBase = random;
 	let levelAttack = 1;
@@ -62,12 +90,19 @@ export function calculateDamages(_attack, _defence, random){
 	return damage;
 }
 
-export function fight(pokemonA, pokemonB, randomA, randomB){
-	console.log("Le combat entre " + pokemonA.name + " et " + pokemonB.name + " commence !");
+// Fight Function
+export function fight(pokemonA, pokemonB, randomA, randomB, log, clic){
+	var print = 0;
 
-	let first = whoAttaquefirst(pokemonA, pokemonB);
-	let A;
-	let B;
+	if(pokemonA.health !== pokemonA.base_health || pokemonB.health !== pokemonB.base_health ){
+		print = 1;
+	} else {
+		log.push("Le combat entre " + pokemonA.name + " et " + pokemonB.name + " commence !");
+	}
+	
+	let first = whoAttaquefirst(pokemonA, pokemonB, log, print);
+	var A;
+	var B;
 
 	if(first === 1){
 		A = pokemonA;
@@ -77,35 +112,27 @@ export function fight(pokemonA, pokemonB, randomA, randomB){
 		B = pokemonA;
 	}
 
-	while(A.health !== 0 && B.health !== 0){
-		A.launchAttack(B, randomA);
-		if(alive(B) === "ko"){
-      B.health = 0;
-			console.log(B.name + " est KO, " + A.name + " est le vainqueur");
-			return 1;
-    }
-    //wait(1000);
-		B.launchAttack(A, randomB);
-		if(alive(A) === "ko"){
-      A.health = 0;
-			console.log(A.name + " est KO, " + B.name + " est le vainqueur");
-			return 2;
-    }
-    //wait(1000);
-	}
+	setInterval(function(){
+		if(A.health !== 0 && B.health !== 0 && clic[0] == 1){
+			A.launchAttack(B, randomA, log);
+			if(B.health <= 0){
+				B.health = 0;
+				B.healht_por = "0%";
+				log.push(B.name + " est KO, " + A.name + " est le vainqueur");
+				console.log(B.name + " est KO, " + A.name + " est le vainqueur")
+				return 1;
+			}
+
+			var tmp = A;
+			A = B;
+			B = tmp;
+		}
+
+	}, 2000);
+
 }
 
-export function alive(pokemon){
-	if (pokemon.health <= 0)
-		return "ko";
-	else
-		return "ok";
-}
-
-export function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
+// General functions
 export function wait(ms){
   var start = new Date().getTime();
   var end = start;

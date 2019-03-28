@@ -1,7 +1,17 @@
-
-  <div>
-    <p>{{pokemon.name}}</p><br>
-    <p>Vie : {{pokemon.health}}</p><br>
-    <p>Attaque : {{pokemon.attack}}</p><br>
-    <p>Defense : {{pokemon.defence}}</p>
-  </div>
+<div id="heroRow" class="row" style="padding-top: 4%">
+    <div class="col col-md-6 affix text-center">								
+      <img id="heroImage"  src="/assets/img/hero/carapuce.gif" alt="Hero">
+    </div>
+  
+    <div class="col col-md-6 align-self-end">
+      <div class="card text-white bg-dark affix mb-3" style="max-width: 100%;">
+        <strong><div id="heroName" class="card-header">{{pokemon.name}}</div></strong>
+        <div class="card-body">
+          <div class="progress">
+            <div id="heroLPBar" id="vilainLPBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [attr.aria-valuenow]="pokemon.health" aria-valuemin="0" [attr.aria-valuemax]="pokemon.base_health" [ngStyle]="{width: pokemon.healht_por}"></div>
+          </div>
+          <p id="heroLifePoint" class="card-text text-right">{{pokemon.health}} / {{pokemon.base_health}} PV</p>
+        </div>
+      </div>									
+    </div>								
+  </div>	
