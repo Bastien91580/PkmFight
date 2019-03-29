@@ -1,2 +1,81 @@
-
-<li><a routerLink="battle">Link 1</a></li>
+<div id="selectDiv">
+    <div class="card-deck">
+      
+      <div class="card text-white border-dark bg-danger" [ngStyle]="{'border': selected[0] ? '10px solid white' : '0px solid white'}"  (click)="selectPkmn(4)" >
+        <div class="card-header">				
+          <img class="card-img-top" src="/assets/img/selection/004.png" alt="Salameche">	
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Salameche</h4>			
+          <p class="card-text">Pdv : 39</p>
+          <p class="card-text">Atk : 52</p>
+          <p class="card-text">Def : 43</p>
+          <p class="card-text">Vit : 65</p>
+        </div>
+        <div class="card-footer">
+          <img src="/assets/img/type/fire_type.png" alt="Type Feu">	
+        </div>
+      </div>
+        
+      <div class="card text-white border-dark bg-primary" [ngStyle]="{'border': selected[1] ? '10px solid white' : '0px solid white'}" (click)="selectPkmn(7)">
+        <div class="card-header">
+          <img class="card-img-top" src="/assets/img/selection/007.png" alt="Carapuce">
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Carapuce</h4>
+          <p class="card-text">Pdv : 44</p>
+          <p class="card-text">Atk : 48</p>
+          <p class="card-text">Def : 65</p>
+          <p class="card-text">Vit : 50</p>
+        </div>
+        <div class="card-footer">
+          <img src="/assets/img/type/water_type.png" alt="Type Eau">	
+        </div>
+      </div>
+        
+      <div class="card text-white border-dark bg-success" [ngStyle]="{'border': selected[2] ? '10px solid white' : '0px solid white'}" (click)="selectPkmn(1)">
+        <div class="card-header">
+          <img class="card-img-top" src="/assets/img/selection/001.png" alt="Bulbizarre">
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Bulbizarre</h4>
+          <p class="card-text">Pdv : 45</p>
+          <p class="card-text">Atk : 49</p>
+          <p class="card-text">Def : 49</p>
+          <p class="card-text">Vit : 45</p>
+        </div>
+        <div class="card-footer">
+          <img src="/assets/img/type/grass_type.png" alt="Type Plante"> - 
+          <img src="/assets/img/type/poison_type.png" alt="Type Poison">
+        </div>
+      </div>
+        
+      <div class="card text-white border-dark bg-warning" [ngStyle]="{'border': selected[3] ? '10px solid white' : '0px solid white'}" (click)="selectPkmn(25)">
+        <div class="card-header">
+          <img class="card-img-top" src="/assets/img/selection/025.png" alt="Pikachu">
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Pikachu</h4>
+          <p class="card-text">Pdv : 35</p>
+          <p class="card-text">Atk : 55</p>
+          <p class="card-text">Def : 40</p>
+          <p class="card-text">Vit : 90</p>
+        </div>
+        <div class="card-footer">
+          <img src="/assets/img/type/electrik_type.png" alt="Type Electrik">
+        </div>
+      </div>
+      
+    </div>
+  
+    <br>
+    
+    <div class="row" *ngIf="isButtonVisible">
+      <div class="col">
+        <div class="btn-group btn-block">
+          <button id="launchFight" type="button" class="btn btn-block btn-secondary" [routerLink]="['battle', pokemon1, pokemon2]">Lancer le Combat !</button>
+        </div>
+      </div> 
+    </div>
+  
+  </div>	

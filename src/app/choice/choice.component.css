@@ -1,0 +1,12 @@
+.pokemon-selected {
+	border-width: 10px;
+}
+
+.hero-selected {
+	border: 10px;
+	border-color: white !important;
+}
+
+.vilain-selected {
+	border-width: 10px;
+}

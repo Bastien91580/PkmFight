@@ -14,7 +14,7 @@ import { ChoiceComponent } from './choice/choice.component';
 
 const routes: Routes = [
   { path: '',  component: ChoiceComponent },
-  { path: 'battle',  component: BattleComponent }
+  { path: 'battle/:idPokemon1/:idPokemon2',  component: BattleComponent }
 ];
 
 @NgModule({

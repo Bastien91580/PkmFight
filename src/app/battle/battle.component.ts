@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { FightServiceService } from '../fight-service.service';
 import { Pokemon } from '../pokemon.model';
 import { ApiPokemonService } from '../api-pokemon.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-battle',
@@ -13,6 +14,8 @@ import { ApiPokemonService } from '../api-pokemon.service';
 export class BattleComponent implements OnInit {
   title = 'Pkm Fight';
   fightLog: string[] = [];
+  idpkmn1: number;
+  idpkmn2: number;
   
   // Default Pokemon
   pokemonA = new Pokemon("Carapuce", 43, 44, 48, 65);
@@ -33,27 +36,35 @@ export class BattleComponent implements OnInit {
 		}
 	}
   
-  constructor(private fightService: FightServiceService, private apiPokemonService: ApiPokemonService){
+  constructor(private fightService: FightServiceService, 
+    private apiPokemonService: ApiPokemonService, 
+    private route: ActivatedRoute){
 	}
 	//_name, _speed, _health, _attack, _defence
 	ngOnInit(): void{ 
-		this.apiPokemonService.getPkmn(7).subscribe(pkmn => {
-			let l = Number(pkmn['stats'][5]['base_stat']);
-			let a = Number(pkmn['stats'][4]['base_stat']);
-			let d = Number(pkmn['stats'][3]['base_stat']);
-			let s = Number(pkmn['stats'][0]['base_stat']);
+    this.route.params
+      .subscribe((params: Params): void => {
+        this.apiPokemonService.getPkmn(params.idPokemon1).subscribe(pkmn => {
+          let l = Number(pkmn['stats'][5]['base_stat']);
+          let a = Number(pkmn['stats'][4]['base_stat']);
+          let d = Number(pkmn['stats'][3]['base_stat']);
+          let s = Number(pkmn['stats'][0]['base_stat']);
+          
+          this.pokemonA = new Pokemon(pkmn['name'], s, l,  a, d);
+        });
+    
+        this.apiPokemonService.getPkmn(params.idPokemon2).subscribe(pkmn => {
+          let l = Number(pkmn['stats'][5]['base_stat']);
+          let a = Number(pkmn['stats'][4]['base_stat']);
+          let d = Number(pkmn['stats'][3]['base_stat']);
+          let s = Number(pkmn['stats'][0]['base_stat']);
+    
+          this.pokemonB = new Pokemon(pkmn['name'], s, l,  a, d);
+        });
+      });
 
-			this.pokemonA = new Pokemon(pkmn['name'], s, l,  a, d);
-		});
 
-    this.apiPokemonService.getPkmn(4).subscribe(pkmn => {
-			let l = Number(pkmn['stats'][5]['base_stat']);
-			let a = Number(pkmn['stats'][4]['base_stat']);
-			let d = Number(pkmn['stats'][3]['base_stat']);
-			let s = Number(pkmn['stats'][0]['base_stat']);
-
-			this.pokemonB = new Pokemon(pkmn['name'], s, l,  a, d);
-    });
+		
 	}
 
 

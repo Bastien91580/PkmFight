@@ -2,12 +2,12 @@
   [ngClass]="{'attackedAnimation': pokemon.attacked }" 
   [ngStyle]="{'padding-top': heroOrEnnemie ? '4%' : '25%'}" >
   <div *ngIf="heroOrEnnemie"  class="col col-md-6 affix text-center">
-    <img [ngClass]="{'pokemonKo': (pokemon.health==0) }" src="/assets/img/hero/carapuce.gif" alt="Hero">
+    <img [ngClass]="{'pokemonKo': (pokemon.health==0) }" src="/assets/img/hero/{{pokemon.name}}.gif" alt="Hero">
   </div>
 
   <div class="col col-md-6 align-self-end">
     <div class="card text-white bg-dark affix mb-3" style="max-width: 100%;">
-      <strong><div class="card-header">{{pokemon.name | uppercase }}</div></strong>
+      <strong><div class="card-header">{{pokemon.name | titlecase}}</div></strong>
       <div class="card-body">
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [attr.aria-valuenow]="pokemon.health" aria-valuemin="0" [attr.aria-valuemax]="pokemon.base_health" [ngClass]="{'bg-success': (pokemon.healht_por_num>=66), 'bg-warning': (pokemon.healht_por_num>=33 && pokemon.healht_por_num<66), 'bg-danger': (pokemon.healht_por_num<33) }" [ngStyle]="{width: pokemon.healht_por}"></div>
@@ -18,7 +18,7 @@
   </div>	
 
   <div *ngIf="!heroOrEnnemie" class="col col-md-6 text-center">
-    <img id="vilainImage" [ngClass]="{'pokemonKo': (pokemon.health==0) }" src="/assets/img/vilain/salameche.gif" class="img-salameche" alt="Vilain">
+    <img id="vilainImage" [ngClass]="{'pokemonKo': (pokemon.health==0) }" src="/assets/img/vilain/{{pokemon.name}}.gif" class="img-salameche" alt="Vilain">
   </div>
 
 </div>	
