@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { Pokemon } from './pokemon.model'
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -18,6 +19,12 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it('should simulate an attack', () => {
+    let pokemonA = new Pokemon("Carapuce", 43, 44, 48, 65);
+    let pokemonB = new Pokemon("Salameche", 65, 39, 52, 43);
+    expect(pokemonA.launchAttack(pokemonB, 20, [])).toEqual(2);
   });
   /*
   it(`should have as title 'Application'`, () => {
