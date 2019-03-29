@@ -13,10 +13,13 @@ export class ChoiceComponent implements OnInit {
   pokemon2: number
   isButtonVisible = false;
   selected: boolean[] = [false,false,false,false];
+  audio = new Audio();
 
   constructor(private apiPokemonService: ApiPokemonService) { }
 
   ngOnInit() {
+
+    this.playAudioChoosePokemon(this.audio);
   }
 
   selectPkmn(id){
@@ -33,6 +36,18 @@ export class ChoiceComponent implements OnInit {
 
   }
 
+  playAudioCombat(){
+    this.audio.pause();
+    this.audio.src = "/assets/music/Pokemon Red & Blue - VS Wild Theme (Extended).mp3";
+    this.audio.load();
+    this.audio.play();
+  }
+
+  playAudioChoosePokemon(audio){
+    audio.src = "/assets/music/Pokemon Red & Blue - Opening.mp3";
+    audio.load();
+    audio.play();
+  }
 
 }
 

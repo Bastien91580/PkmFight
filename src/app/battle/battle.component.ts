@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from "rxjs";
 import { Injectable } from '@angular/core';
 import { FightServiceService } from '../fight-service.service';
@@ -19,7 +19,8 @@ export class BattleComponent implements OnInit {
   
   // Default Pokemon
   pokemonA = new Pokemon("Carapuce", 43, 44, 48, 65);
-  pokemonB = new Pokemon("Salameche", 65, 39, 52, 43);
+	pokemonB = new Pokemon("Salameche", 65, 39, 52, 43);
+	@Input() isCombatStarting: boolean = true;
 	
 	clic: number[] = [0];
 	
@@ -42,6 +43,13 @@ export class BattleComponent implements OnInit {
 	}
 	//_name, _speed, _health, _attack, _defence
 	ngOnInit(): void{ 
+		if(this.isCombatStarting){
+			//playAudioCombat();
+			var context = this;
+			setTimeout(function(){
+				context.isCombatStarting = false;
+			}, 2777);
+		}
     this.route.params
       .subscribe((params: Params): void => {
         this.apiPokemonService.getPkmn(params.idPokemon1).subscribe(pkmn => {
@@ -62,11 +70,7 @@ export class BattleComponent implements OnInit {
           this.pokemonB = new Pokemon(pkmn['name'], s, l,  a, d);
         });
       });
-
-
-		
 	}
-
 
 }
 
@@ -113,8 +117,9 @@ export function fight(pokemonA, pokemonB, randomA, randomB, log, clic, fightServ
 	myObservable.subscribe(
 		next => log.push(next),
 		error => console.error('onError: %s', error),
-		() => console.log('onCompleted')
+		() => {playAudioVictory()}
 	)
+	
 
 }
 
@@ -125,4 +130,12 @@ export function wait(ms){
   while(end < start + ms) {
     end = new Date().getTime();
  }
+}
+
+
+export function playAudioVictory(){
+	let audio = new Audio();
+	audio.src = "/assets/music/Pokemon Red & Blue - Victory Theme (Extended).mp3";
+	audio.load();
+	audio.play();
 }
