@@ -18,8 +18,7 @@ export class ChoiceComponent implements OnInit {
   constructor(private apiPokemonService: ApiPokemonService) { }
 
   ngOnInit() {
-
-    this.playAudioChoosePokemon(this.audio);
+    this.playAudioChoosePokemon();
   }
 
   selectPkmn(id){
@@ -43,10 +42,10 @@ export class ChoiceComponent implements OnInit {
     this.audio.play();
   }
 
-  playAudioChoosePokemon(audio){
-    audio.src = "/assets/music/Pokemon Red & Blue - Opening.mp3";
-    audio.load();
-    audio.play();
+  playAudioChoosePokemon(){
+    this.audio.src = "/assets/music/Pokemon Red & Blue - Opening.mp3";
+    this.audio.load();
+    this.audio.play();
   }
 
 }

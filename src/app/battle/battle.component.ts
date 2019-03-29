@@ -117,7 +117,12 @@ export function fight(pokemonA, pokemonB, randomA, randomB, log, clic, fightServ
 	myObservable.subscribe(
 		next => log.push(next),
 		error => console.error('onError: %s', error),
-		() => {playAudioVictory()}
+		() => {
+			Array.prototype.slice.call(document.querySelectorAll('audio')).forEach(function(audio) {
+				audio.muted = true;
+			});
+			playAudioVictory()
+		}
 	)
 	
 

@@ -1,6 +1,7 @@
 <div class="row"
   [ngClass]="{'attackedAnimation': pokemon.attacked }" 
   [ngStyle]="{'padding-top': heroOrEnnemie ? '4%' : '25%'}" >
+  
   <div *ngIf="heroOrEnnemie"  class="col col-md-6 affix text-center">
     <img [ngClass]="{'pokemonKo': (pokemon.health==0) }" src="/assets/img/hero/{{pokemon.name}}.gif" alt="Hero">
   </div>
