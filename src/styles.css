@@ -60,21 +60,7 @@
     from { background: #eee;}
     to { background: #e74c3c; }
   }
-  
-  @keyframes shake {
-    0% { transform: translate(0, 0) rotate(0); }
-    20% { transform: translate(-10px, 0) rotate(-20deg); }
-    30% { transform: translate(10px, 0) rotate(20deg); }
-    50% { transform: translate(-10px, 0) rotate(-10deg); }
-    60% { transform: translate(10px, 0) rotate(10deg); }
-    100% { transform: translate(0, 0) rotate(0); }
-  }
-  @keyframes fall {
-    0% { top: -200px }
-    60% { top: 0 }
-    80% { top: -20px }
-    100% { top: 0 }
-  }
+
 
   .img-background {	
     background: url("./assets/img/background.png") no-repeat center center fixed;
@@ -82,49 +68,4 @@
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-}
-
-.attackedAnimation {
-  animation: shake 0.50s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-}
-@keyframes shake {
-  10%, 90% {
-    transform: translate3d(-5px, 0, 0);
-  }
-  
-  20%, 80% {
-    transform: translate3d(10px, 0, 0);
-  }
-  30%, 50%, 70% {
-    transform: translate3d(-15px, 0, 0);
-  }
-  40%, 60% {
-    transform: translate3d(15px, 0, 0);
-  }
-}
-
-.pokemonKo {
-  visibility: hidden;
-  opacity: 0;
-  animation: pokemonKoDestination 1s;
-  transition: visibility 0s 1s, opacity 1s linear;
-}
-
-@keyframes pokemonKoDestination {
-  
-  33% {
-    
-    transform: translate3d(0, 25px, 0);
-  }
-  
-  66% {
-
-    transform: translate3d(0, 75px, 0);
-  }
-
-  100% {
-
-    transform: translate3d(0, 175px, 0);
-  }
 }
